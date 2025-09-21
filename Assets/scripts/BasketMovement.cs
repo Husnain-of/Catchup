@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class BasketMovement : MonoBehaviour
 {
-    public float moveSpeed = 800f; // Movement speed
-    public RectTransform canvasRect; // Canvas ka RectTransform (Inspector me drag karo)
+    public float moveSpeed = 10f; // Smooth follow speed
+    public RectTransform canvasRect; // Canvas ka RectTransform
 
     private RectTransform rectTransform;
 
@@ -19,27 +19,48 @@ public class BasketMovement : MonoBehaviour
 
     void Update()
     {
-        float moveX = 0f;
-
-        // ✅ PC ke liye (Testing)
-        moveX = Input.GetAxis("Horizontal"); // -1 (left), +1 (right)
-
-        // ✅ Mobile ke liye (Touch input)
+        // ✅ Mobile/PC Touch control
         if (Input.touchCount > 0)
         {
             Touch touch = Input.GetTouch(0);
 
-            if (touch.position.x < Screen.width / 2)
-                moveX = -1f; // left
-            else
-                moveX = 1f;  // right
+            // Screen se Canvas position me convert karo
+            Vector2 localPoint;
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                canvasRect, touch.position, null, out localPoint
+            );
+
+            // Basket ko touch position ke X par move karo (sirf X change hoga)
+            Vector2 targetPos = new Vector2(localPoint.x, rectTransform.anchoredPosition.y);
+
+            // Smooth move
+            rectTransform.anchoredPosition = Vector2.Lerp(
+                rectTransform.anchoredPosition,
+                targetPos,
+                moveSpeed * Time.deltaTime
+            );
+
+            ClampBasket();
         }
 
-        // Movement apply karo
-        rectTransform.anchoredPosition += new Vector2(moveX * moveSpeed * Time.deltaTime, 0);
+        // ✅ PC testing ke liye (Mouse)
+        if (Application.isEditor && Input.GetMouseButton(0))
+        {
+            Vector2 localPoint;
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                canvasRect, Input.mousePosition, null, out localPoint
+            );
 
-        // ✅ Basket ko screen ke andar clamp karo
-        ClampBasket();
+            Vector2 targetPos = new Vector2(localPoint.x, rectTransform.anchoredPosition.y);
+
+            rectTransform.anchoredPosition = Vector2.Lerp(
+                rectTransform.anchoredPosition,
+                targetPos,
+                moveSpeed * Time.deltaTime
+            );
+
+            ClampBasket();
+        }
     }
 
     void ClampBasket()

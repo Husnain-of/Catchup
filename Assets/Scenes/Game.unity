@@ -130,6 +130,7 @@ GameObject:
   - component: {fileID: 22836911}
   - component: {fileID: 22836913}
   - component: {fileID: 22836912}
+  - component: {fileID: 22836914}
   m_Layer: 5
   m_Name: Score
   m_TagString: Untagged
@@ -176,7 +177,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Score
+  m_text: 'Score:'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -203,8 +204,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 50
-  m_fontSizeBase: 50
+  m_fontSize: 60
+  m_fontSizeBase: 60
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -255,6 +256,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 22836910}
   m_CullTransparentMesh: 1
+--- !u!114 &22836914
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 22836910}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6565640be56244f11918e310da5d8ad1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  score: 0
+  scoreText: {fileID: 22836912}
 --- !u!1 &128993815
 GameObject:
   m_ObjectHideFlags: 0
@@ -421,8 +436,8 @@ RectTransform:
   m_Children:
   - {fileID: 790322688}
   - {fileID: 22836911}
-  - {fileID: 921466609}
   - {fileID: 1791134184}
+  - {fileID: 921466609}
   - {fileID: 2027898474}
   - {fileID: 620099009}
   m_Father: {fileID: 0}
@@ -719,6 +734,7 @@ GameObject:
   - component: {fileID: 1791134187}
   - component: {fileID: 1791134189}
   - component: {fileID: 1791134190}
+  - component: {fileID: 1791134191}
   m_Layer: 5
   m_Name: Basket
   m_TagString: Basket
@@ -843,6 +859,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 2538500893464240619, guid: 5ba55913cfb874cecb8c5a014c9432af, type: 3}
   canvasTransform: {fileID: 322719554}
+--- !u!114 &1791134191
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1791134183}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74337bf755b6a4b858a49ba343f105f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 800
+  canvasRect: {fileID: 322719554}
 --- !u!1 &1979686968
 GameObject:
   m_ObjectHideFlags: 0
