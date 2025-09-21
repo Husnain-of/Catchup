@@ -866,6 +866,8 @@ MonoBehaviour:
   playerPrefab: {fileID: 2538500893464240619, guid: 5ba55913cfb874cecb8c5a014c9432af, type: 3}
   canvasTransform: {fileID: 322719554}
   floatingTextPrefab: {fileID: 1810789490150587524, guid: 464c2709143f2445e80e864fbd7fc59c, type: 3}
+  baseGravity: 50
+  gravityIncrease: 1
 --- !u!114 &1791134191
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1231,7 +1233,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4325455012815738258, guid: 464c2709143f2445e80e864fbd7fc59c, type: 3}
       propertyPath: fadeDuration
-      value: 40
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6488682935162492287, guid: 464c2709143f2445e80e864fbd7fc59c, type: 3}
       propertyPath: m_Pivot.x

@@ -3,8 +3,8 @@ using TMPro;
 
 public class FloatingText : MonoBehaviour
 {
-    public float moveSpeed = 100f;       // Upar move speed
-    public float fadeDuration = 1f;      // Kitne sec me fade hoga
+    public float moveSpeed = 300;       // Upar move speed
+    public float fadeDuration = 20f;      // Kitne sec me fade hoga
     private CanvasGroup canvasGroup;
     private RectTransform rectTransform;
 
