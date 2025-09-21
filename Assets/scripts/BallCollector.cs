@@ -62,21 +62,43 @@
 
 // public class BasketCollector : MonoBehaviour
 // {
-//     public GameObject playerPrefab;         // Ball prefab
-//     public RectTransform canvasTransform;   // Canvas ka RectTransform
+//     [Header("Prefabs & References")]
+//     public GameObject playerPrefab;         // Ball prefab (UI Image wali)
+//     public RectTransform canvasTransform;   // Canvas RectTransform
+//     public GameObject floatingTextPrefab;   // FloatingText prefab
 
 //     private void OnCollisionEnter2D(Collision2D collision)
 //     {
 //         if (collision.gameObject.CompareTag("Player"))
 //         {
-//             // ✅ Score add 5 points
-//             ScoreManager.instance.AddScore(5);
+//             // ✅ Score +5 (agar ScoreManager hai to use karo)
+//             if (ScoreManager.instance != null)
+//             {
+//                 ScoreManager.instance.AddScore(5);
+//             }
 
-//             // Destroy old ball
+//             // ✅ Floating text spawn karo
+//             ShowFloatingText();
+
+//             // ✅ Ball destroy
 //             Destroy(collision.gameObject);
 
-//             // Spawn new ball
+//             // ✅ Nayi ball spawn karo
 //             SpawnNewBall();
+//         }
+//     }
+
+//     void ShowFloatingText()
+//     {
+//         if (floatingTextPrefab != null && canvasTransform != null)
+//         {
+//             GameObject popup = Instantiate(floatingTextPrefab, canvasTransform);
+
+//             // Basket ki world position ko screen-space UI me convert karo
+//             Vector3 screenPos = Camera.main.WorldToScreenPoint(transform.position);
+
+//             // UI element ki position set karo
+//             popup.transform.position = screenPos;
 //         }
 //     }
 
@@ -89,19 +111,19 @@
 
 //         if (ballRect != null)
 //         {
-//             // Random X position between -680 to 680, fixed Y = 840
 //             float randomX = Random.Range(-680f, 680f);
 //             float fixedY = 840f;
 //             ballRect.anchoredPosition = new Vector2(randomX, fixedY);
 
-//             // Optional: size fix agar zero ho
 //             if (ballRect.sizeDelta == Vector2.zero)
 //                 ballRect.sizeDelta = new Vector2(100, 100);
 
-//             newBall.transform.SetAsLastSibling(); // Canvas ke upar dikhe
+//             newBall.transform.SetAsLastSibling();
 //         }
 //     }
 // }
+
+
 
 using UnityEngine;
 
@@ -109,6 +131,7 @@ public class BasketCollector : MonoBehaviour
 {
     public GameObject playerPrefab;         // Ball prefab
     public RectTransform canvasTransform;   // Canvas ka RectTransform
+    public GameObject floatingTextPrefab;   // ✅ Floating Text Prefab
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -116,6 +139,16 @@ public class BasketCollector : MonoBehaviour
         {
             // ✅ Score add 5 points
             ScoreManager.instance.AddScore(5);
+
+            // ✅ Floating text spawn karo
+            if (floatingTextPrefab != null && canvasTransform != null)
+            {
+                GameObject ft = Instantiate(floatingTextPrefab, canvasTransform);
+                RectTransform rt = ft.GetComponent<RectTransform>();
+
+                // Text basket ke thoda upar spawn hoga
+                rt.anchoredPosition = collision.transform.GetComponent<RectTransform>().anchoredPosition + new Vector2(0, 50);
+            }
 
             // Destroy old ball
             Destroy(collision.gameObject);
@@ -147,3 +180,6 @@ public class BasketCollector : MonoBehaviour
         }
     }
 }
+
+
+
