@@ -1,127 +1,186 @@
-// using UnityEngine;
+// // using UnityEngine;
 
-// public class BasketCollector : MonoBehaviour
-// {
-//     public GameObject playerPrefab;   // Ball prefab (UI Image wali)
-//     public RectTransform canvasTransform; // Canvas ka RectTransform (Inspector me drag karo)
+// // public class BasketCollector : MonoBehaviour
+// // {
+// //     public GameObject playerPrefab;   // Ball prefab (UI Image wali)
+// //     public RectTransform canvasTransform; // Canvas ka RectTransform (Inspector me drag karo)
 
-//     private void OnCollisionEnter2D(Collision2D collision)
-//     {
-//         Debug.Log("Collision with: " + collision.gameObject.name);
+// //     private void OnCollisionEnter2D(Collision2D collision)
+// //     {
+// //         Debug.Log("Collision with: " + collision.gameObject.name);
 
-//         if (collision.gameObject.CompareTag("Player"))
-//         {
-//             Debug.Log("Player detected! Destroying old ball.");
-//             Destroy(collision.gameObject);
-//             SpawnNewBall();
-//         }
-//     }
+// //         if (collision.gameObject.CompareTag("Player"))
+// //         {
+// //             Debug.Log("Player detected! Destroying old ball.");
+// //             Destroy(collision.gameObject);
+// //             SpawnNewBall();
+// //         }
+// //     }
 
-//     void SpawnNewBall()
-// {
-//     if (playerPrefab == null || canvasTransform == null)
-//     {
-//         Debug.LogError("⚠️ Player Prefab ya Canvas Transform assign nahi hua!");
-//         return;
-//     }
+// //     void SpawnNewBall()
+// // {
+// //     if (playerPrefab == null || canvasTransform == null)
+// //     {
+// //         Debug.LogError("⚠️ Player Prefab ya Canvas Transform assign nahi hua!");
+// //         return;
+// //     }
 
-//     // Canvas ke andar direct instantiate
-//     GameObject newBall = Instantiate(playerPrefab, canvasTransform);
+// //     // Canvas ke andar direct instantiate
+// //     GameObject newBall = Instantiate(playerPrefab, canvasTransform);
 
-//     RectTransform ballRect = newBall.GetComponent<RectTransform>();
+// //     RectTransform ballRect = newBall.GetComponent<RectTransform>();
 
-//     if (ballRect == null)
-//     {
-//         Debug.LogError("⚠️ Prefab me RectTransform nahi mila!");
-//         return;
-//     }
+// //     if (ballRect == null)
+// //     {
+// //         Debug.LogError("⚠️ Prefab me RectTransform nahi mila!");
+// //         return;
+// //     }
 
-//     // Random X position (UI Anchored Position ke liye)
-//     float randomX = Random.Range(-680f, 680f);
-//     float fixedY = 840f;
+// //     // Random X position (UI Anchored Position ke liye)
+// //     float randomX = Random.Range(-680f, 680f);
+// //     float fixedY = 840f;
 
-//     ballRect.anchoredPosition = new Vector2(randomX, fixedY);
+// //     ballRect.anchoredPosition = new Vector2(randomX, fixedY);
 
-//     // Agar size 0 ho to force kar do
-//     if (ballRect.sizeDelta == Vector2.zero)
-//     {
-//         ballRect.sizeDelta = new Vector2(100, 100);
-//     }
+// //     // Agar size 0 ho to force kar do
+// //     if (ballRect.sizeDelta == Vector2.zero)
+// //     {
+// //         ballRect.sizeDelta = new Vector2(100, 100);
+// //     }
 
-//     // Always bring on top (BG ke neeche na jaye)
-//     newBall.transform.SetAsLastSibling();
+// //     // Always bring on top (BG ke neeche na jaye)
+// //     newBall.transform.SetAsLastSibling();
 
-//     Debug.Log("✅ New Ball UI spawned at anchoredPos: " + ballRect.anchoredPosition);
-// }
-// }
-
-
+// //     Debug.Log("✅ New Ball UI spawned at anchoredPos: " + ballRect.anchoredPosition);
+// // }
+// // }
 
 
-// using UnityEngine;
 
-// public class BasketCollector : MonoBehaviour
-// {
-//     [Header("Prefabs & References")]
-//     public GameObject playerPrefab;         // Ball prefab (UI Image wali)
-//     public RectTransform canvasTransform;   // Canvas RectTransform
-//     public GameObject floatingTextPrefab;   // FloatingText prefab
 
-//     private void OnCollisionEnter2D(Collision2D collision)
-//     {
-//         if (collision.gameObject.CompareTag("Player"))
-//         {
-//             // ✅ Score +5 (agar ScoreManager hai to use karo)
-//             if (ScoreManager.instance != null)
-//             {
-//                 ScoreManager.instance.AddScore(5);
-//             }
+// // using UnityEngine;
 
-//             // ✅ Floating text spawn karo
-//             ShowFloatingText();
+// // public class BasketCollector : MonoBehaviour
+// // {
+// //     [Header("Prefabs & References")]
+// //     public GameObject playerPrefab;         // Ball prefab (UI Image wali)
+// //     public RectTransform canvasTransform;   // Canvas RectTransform
+// //     public GameObject floatingTextPrefab;   // FloatingText prefab
 
-//             // ✅ Ball destroy
-//             Destroy(collision.gameObject);
+// //     private void OnCollisionEnter2D(Collision2D collision)
+// //     {
+// //         if (collision.gameObject.CompareTag("Player"))
+// //         {
+// //             // ✅ Score +5 (agar ScoreManager hai to use karo)
+// //             if (ScoreManager.instance != null)
+// //             {
+// //                 ScoreManager.instance.AddScore(5);
+// //             }
 
-//             // ✅ Nayi ball spawn karo
-//             SpawnNewBall();
-//         }
-//     }
+// //             // ✅ Floating text spawn karo
+// //             ShowFloatingText();
 
-//     void ShowFloatingText()
-//     {
-//         if (floatingTextPrefab != null && canvasTransform != null)
-//         {
-//             GameObject popup = Instantiate(floatingTextPrefab, canvasTransform);
+// //             // ✅ Ball destroy
+// //             Destroy(collision.gameObject);
 
-//             // Basket ki world position ko screen-space UI me convert karo
-//             Vector3 screenPos = Camera.main.WorldToScreenPoint(transform.position);
+// //             // ✅ Nayi ball spawn karo
+// //             SpawnNewBall();
+// //         }
+// //     }
 
-//             // UI element ki position set karo
-//             popup.transform.position = screenPos;
-//         }
-//     }
+// //     void ShowFloatingText()
+// //     {
+// //         if (floatingTextPrefab != null && canvasTransform != null)
+// //         {
+// //             GameObject popup = Instantiate(floatingTextPrefab, canvasTransform);
 
-//     void SpawnNewBall()
-//     {
-//         if (playerPrefab == null || canvasTransform == null) return;
+// //             // Basket ki world position ko screen-space UI me convert karo
+// //             Vector3 screenPos = Camera.main.WorldToScreenPoint(transform.position);
 
-//         GameObject newBall = Instantiate(playerPrefab, canvasTransform);
-//         RectTransform ballRect = newBall.GetComponent<RectTransform>();
+// //             // UI element ki position set karo
+// //             popup.transform.position = screenPos;
+// //         }
+// //     }
 
-//         if (ballRect != null)
-//         {
-//             float randomX = Random.Range(-680f, 680f);
-//             float fixedY = 840f;
-//             ballRect.anchoredPosition = new Vector2(randomX, fixedY);
+// //     void SpawnNewBall()
+// //     {
+// //         if (playerPrefab == null || canvasTransform == null) return;
 
-//             if (ballRect.sizeDelta == Vector2.zero)
-//                 ballRect.sizeDelta = new Vector2(100, 100);
+// //         GameObject newBall = Instantiate(playerPrefab, canvasTransform);
+// //         RectTransform ballRect = newBall.GetComponent<RectTransform>();
 
-//             newBall.transform.SetAsLastSibling();
-//         }
-//     }
-// }
+// //         if (ballRect != null)
+// //         {
+// //             float randomX = Random.Range(-680f, 680f);
+// //             float fixedY = 840f;
+// //             ballRect.anchoredPosition = new Vector2(randomX, fixedY);
+
+// //             if (ballRect.sizeDelta == Vector2.zero)
+// //                 ballRect.sizeDelta = new Vector2(100, 100);
+
+// //             newBall.transform.SetAsLastSibling();
+// //         }
+// //     }
+// // }
+
+
+
+
+// // using UnityEngine;
+
+// // public class BasketCollector : MonoBehaviour
+// // {
+// //     public GameObject playerPrefab;         // Ball prefab
+// //     public RectTransform canvasTransform;   // Canvas ka RectTransform
+// //     public GameObject floatingTextPrefab;   // ✅ Floating Text Prefab
+
+// //     private void OnCollisionEnter2D(Collision2D collision)
+// //     {
+// //         if (collision.gameObject.CompareTag("Player"))
+// //         {
+// //             // ✅ Score add 5 points
+// //             ScoreManager.instance.AddScore(5);
+
+// //             // ✅ Floating text spawn karo
+// //             if (floatingTextPrefab != null && canvasTransform != null)
+// //             {
+// //                 GameObject ft = Instantiate(floatingTextPrefab, canvasTransform);
+// //                 RectTransform rt = ft.GetComponent<RectTransform>();
+
+// //                 // Text basket ke thoda upar spawn hoga
+// //                 rt.anchoredPosition = collision.transform.GetComponent<RectTransform>().anchoredPosition + new Vector2(0, 50);
+// //             }
+
+// //             // Destroy old ball
+// //             Destroy(collision.gameObject);
+
+// //             // Spawn new ball
+// //             SpawnNewBall();
+// //         }
+// //     }
+
+// //     void SpawnNewBall()
+// //     {
+// //         if (playerPrefab == null || canvasTransform == null) return;
+
+// //         GameObject newBall = Instantiate(playerPrefab, canvasTransform);
+// //         RectTransform ballRect = newBall.GetComponent<RectTransform>();
+
+// //         if (ballRect != null)
+// //         {
+// //             // Random X position between -680 to 680, fixed Y = 840
+// //             float randomX = Random.Range(-680f, 680f);
+// //             float fixedY = 840f;
+// //             ballRect.anchoredPosition = new Vector2(randomX, fixedY);
+
+// //             // Optional: size fix agar zero ho
+// //             if (ballRect.sizeDelta == Vector2.zero)
+// //                 ballRect.sizeDelta = new Vector2(100, 100);
+
+// //             newBall.transform.SetAsLastSibling(); // Canvas ke upar dikhe
+// //         }
+// //     }
+// // }
 
 
 
@@ -133,6 +192,10 @@
 //     public GameObject playerPrefab;         // Ball prefab
 //     public RectTransform canvasTransform;   // Canvas ka RectTransform
 //     public GameObject floatingTextPrefab;   // ✅ Floating Text Prefab
+//     public float baseGravity = 50f;          // Starting gravity
+//     public float gravityIncrease = 5f;    // Har ball ke sath gravity increase
+//     private int ballCount = 0;              // Kitne ball spawn hue
+//     public float maxGravity = 100f; 
 
 //     private void OnCollisionEnter2D(Collision2D collision)
 //     {
@@ -179,9 +242,195 @@
 
 //             newBall.transform.SetAsLastSibling(); // Canvas ke upar dikhe
 //         }
+
+//         // ✅ Gravity increase logic
+//         Rigidbody2D rb = newBall.GetComponent<Rigidbody2D>();
+//         if (rb != null)
+//         {
+//             ballCount++;
+//             float newGravity = baseGravity + (ballCount * gravityIncrease);
+//             rb.gravityScale = Mathf.Min(newGravity, maxGravity); // 👈 Clamp to max
+//         }
 //     }
 // }
 
+
+
+
+// using UnityEngine;
+
+// public class BasketCollector : MonoBehaviour
+// {
+//     [Header("Prefabs & References")]
+//     public GameObject playerPrefab;          // Ball prefab
+//     public RectTransform canvasTransform;    // Canvas ka RectTransform
+//     public GameObject floatingTextPrefab;    // Floating Text Prefab
+
+//     [Header("Gravity Settings")]
+//     public float baseGravity = 1f;           // Starting gravity
+//     public float gravityIncrease = 0.2f;     // Har ball ke sath gravity increase
+//     public float maxGravity = 5f;            // Max gravity clamp
+
+//     private int ballCount = 0;               // Kitni balls spawn hui hain
+
+//     private void OnCollisionEnter2D(Collision2D collision)
+//     {
+//         if (collision.gameObject.CompareTag("Player"))
+//         {
+//             // ✅ Score add 5 points
+//             if (ScoreManager.instance != null)
+//                 ScoreManager.instance.AddScore(5);
+
+//             // ✅ Floating text spawn
+//             ShowFloatingText(collision);
+
+//             // ✅ Purani ball destroy
+//             Destroy(collision.gameObject);
+
+//             // ✅ Nayi ball spawn
+//             SpawnNewBall();
+//         }
+//     }
+
+//     void ShowFloatingText(Collision2D collision)
+//     {
+//         if (floatingTextPrefab != null && canvasTransform != null)
+//         {
+//             GameObject ft = Instantiate(floatingTextPrefab, canvasTransform);
+//             RectTransform rt = ft.GetComponent<RectTransform>();
+
+//             if (rt != null)
+//             {
+//                 // Basket ke thoda upar spawn hoga
+//                 rt.anchoredPosition = collision.transform.GetComponent<RectTransform>().anchoredPosition + new Vector2(0, 50);
+//             }
+//         }
+//     }
+
+//     void SpawnNewBall()
+//     {
+//         if (playerPrefab == null || canvasTransform == null) return;
+
+//         GameObject newBall = Instantiate(playerPrefab, canvasTransform);
+//         RectTransform ballRect = newBall.GetComponent<RectTransform>();
+
+//         if (ballRect != null)
+//         {
+//             // Random X, fixed Y
+//             float randomX = Random.Range(-680f, 680f);
+//             float fixedY = 840f;
+//             ballRect.anchoredPosition = new Vector2(randomX, fixedY);
+
+//             // Agar prefab ka size zero ho to fix kar do
+//             if (ballRect.sizeDelta == Vector2.zero)
+//                 ballRect.sizeDelta = new Vector2(100, 100);
+
+//             // Always bring on top
+//             newBall.transform.SetAsLastSibling();
+//         }
+
+//         // ✅ Gravity increase logic
+//         Rigidbody2D rb = newBall.GetComponent<Rigidbody2D>();
+//         if (rb != null)
+//         {
+//             ballCount++;
+//             float newGravity = baseGravity + (ballCount * gravityIncrease);
+//             rb.gravityScale = Mathf.Min(newGravity, maxGravity); // Clamp max tak
+//         }
+//     }
+// }
+
+
+
+
+// using UnityEngine;
+
+// public class BasketCollector : MonoBehaviour
+// {
+//     [Header("Prefabs & References")]
+//     public GameObject playerPrefab;          // Ball prefab
+//     public RectTransform canvasTransform;    // Canvas ka RectTransform
+//     public GameObject floatingTextPrefab;    // Floating Text Prefab
+
+//     [Header("Gravity Settings")]
+//     public float baseGravity = 1f;           // Starting gravity
+//     public float gravityIncrease = 0.2f;     // Har ball ke sath gravity increase
+//     public float maxGravity = 5f;            // Max gravity clamp
+
+//     private int ballCount = 0;               // Kitni balls spawn hui hain
+
+//     private void OnCollisionEnter2D(Collision2D collision)
+//     {
+//         if (collision.gameObject.CompareTag("Player"))
+//         {
+//             // ✅ Score add 5 points
+//             if (ScoreManager.instance != null)
+//                 ScoreManager.instance.AddScore(5);
+
+//             // ✅ Floating text spawn
+//             ShowFloatingText(collision);
+
+//             // ✅ Purani ball destroy
+//             Destroy(collision.gameObject);
+
+//             // ✅ Nayi ball spawn
+//             SpawnNewBall();
+//         }
+//     }
+
+//     void ShowFloatingText(Collision2D collision)
+//     {
+//         if (floatingTextPrefab != null && canvasTransform != null)
+//         {
+//             GameObject ft = Instantiate(floatingTextPrefab, canvasTransform);
+//             RectTransform rt = ft.GetComponent<RectTransform>();
+
+//             if (rt != null)
+//             {
+//                 // Basket ke thoda upar spawn hoga
+//                 rt.anchoredPosition = collision.transform.GetComponent<RectTransform>().anchoredPosition + new Vector2(0, 50);
+//             }
+//         }
+//     }
+
+//     void SpawnNewBall()
+//     {
+//         if (playerPrefab == null || canvasTransform == null) return;
+
+//         GameObject newBall = Instantiate(playerPrefab, canvasTransform);
+//         RectTransform ballRect = newBall.GetComponent<RectTransform>();
+
+//         if (ballRect != null)
+//         {
+//             // ✅ Canvas aur Ball ka size nikal lo
+//             float canvasHalfWidth = canvasTransform.rect.width / 2f;
+//             float ballHalfWidth = ballRect.rect.width / 2f;
+
+//             // ✅ Random X ko clamp karo taake ball screen ke andar hi spawn ho
+//             float randomX = Random.Range(-canvasHalfWidth + ballHalfWidth, canvasHalfWidth - ballHalfWidth);
+
+//             // Fixed Y spawn height
+//             float fixedY = 840f;
+//             ballRect.anchoredPosition = new Vector2(randomX, fixedY);
+
+//             // Agar prefab ka size zero ho to fix kar do
+//             if (ballRect.sizeDelta == Vector2.zero)
+//                 ballRect.sizeDelta = new Vector2(100, 100);
+
+//             // Always bring on top
+//             newBall.transform.SetAsLastSibling();
+//         }
+
+//         // ✅ Gravity increase logic
+//         Rigidbody2D rb = newBall.GetComponent<Rigidbody2D>();
+//         if (rb != null)
+//         {
+//             ballCount++;
+//             float newGravity = baseGravity + (ballCount * gravityIncrease);
+//             rb.gravityScale = Mathf.Min(newGravity, maxGravity); // Clamp max tak
+//         }
+//     }
+// }
 
 
 
@@ -189,35 +438,70 @@ using UnityEngine;
 
 public class BasketCollector : MonoBehaviour
 {
-    public GameObject playerPrefab;         // Ball prefab
-    public RectTransform canvasTransform;   // Canvas ka RectTransform
-    public GameObject floatingTextPrefab;   // ✅ Floating Text Prefab
-    public float baseGravity = 50f;          // Starting gravity
-    public float gravityIncrease = 1f;    // Har ball ke sath gravity increase
-    private int ballCount = 0;              // Kitne ball spawn hue
+    [Header("Prefabs & References")]
+    public GameObject playerPrefab;          // Ball prefab
+    public RectTransform canvasTransform;    // Canvas ka RectTransform
+    public GameObject floatingTextPrefab;    // Floating Text Prefab
+
+    [Header("Gravity Settings")]
+    public float baseGravity = 1f;           // Starting gravity
+    public float gravityIncrease = 0.2f;     // Har ball ke sath gravity increase
+    public float maxGravity = 5f;            // Max gravity clamp
+
+    [Header("Audio")]
+    public AudioClip scoreSound;             // 🎵 Score ka sound
+    private AudioSource audioSource;
+
+    private int ballCount = 0;               // Kitni balls spawn hui hain
+
+    private void Start()
+    {
+        // Basket object pe AudioSource ensure karo
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
+        audioSource.playOnAwake = false;
+    }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
             // ✅ Score add 5 points
-            ScoreManager.instance.AddScore(5);
+            if (ScoreManager.instance != null)
+                ScoreManager.instance.AddScore(5);
 
-            // ✅ Floating text spawn karo
-            if (floatingTextPrefab != null && canvasTransform != null)
+            // ✅ Floating text spawn
+            ShowFloatingText(collision);
+
+            // ✅ Score sound bajao
+            if (scoreSound != null)
             {
-                GameObject ft = Instantiate(floatingTextPrefab, canvasTransform);
-                RectTransform rt = ft.GetComponent<RectTransform>();
-
-                // Text basket ke thoda upar spawn hoga
-                rt.anchoredPosition = collision.transform.GetComponent<RectTransform>().anchoredPosition + new Vector2(0, 50);
+                audioSource.PlayOneShot(scoreSound);
             }
 
-            // Destroy old ball
+            // ✅ Purani ball destroy
             Destroy(collision.gameObject);
 
-            // Spawn new ball
+            // ✅ Nayi ball spawn
             SpawnNewBall();
+        }
+    }
+
+    void ShowFloatingText(Collision2D collision)
+    {
+        if (floatingTextPrefab != null && canvasTransform != null)
+        {
+            GameObject ft = Instantiate(floatingTextPrefab, canvasTransform);
+            RectTransform rt = ft.GetComponent<RectTransform>();
+
+            if (rt != null)
+            {
+                // Basket ke thoda upar spawn hoga
+                rt.anchoredPosition = collision.transform.GetComponent<RectTransform>().anchoredPosition + new Vector2(0, 50);
+            }
         }
     }
 
@@ -230,16 +514,23 @@ public class BasketCollector : MonoBehaviour
 
         if (ballRect != null)
         {
-            // Random X position between -680 to 680, fixed Y = 840
-            float randomX = Random.Range(-680f, 680f);
+            // ✅ Canvas aur Ball ka size nikal lo
+            float canvasHalfWidth = canvasTransform.rect.width / 2f;
+            float ballHalfWidth = ballRect.rect.width / 2f;
+
+            // ✅ Random X ko clamp karo taake ball screen ke andar hi spawn ho
+            float randomX = Random.Range(-canvasHalfWidth + ballHalfWidth, canvasHalfWidth - ballHalfWidth);
+
+            // Fixed Y spawn height
             float fixedY = 840f;
             ballRect.anchoredPosition = new Vector2(randomX, fixedY);
 
-            // Optional: size fix agar zero ho
+            // Agar prefab ka size zero ho to fix kar do
             if (ballRect.sizeDelta == Vector2.zero)
                 ballRect.sizeDelta = new Vector2(100, 100);
 
-            newBall.transform.SetAsLastSibling(); // Canvas ke upar dikhe
+            // Always bring on top
+            newBall.transform.SetAsLastSibling();
         }
 
         // ✅ Gravity increase logic
@@ -247,11 +538,9 @@ public class BasketCollector : MonoBehaviour
         if (rb != null)
         {
             ballCount++;
-            rb.gravityScale = baseGravity + (ballCount * gravityIncrease);
+            float newGravity = baseGravity + (ballCount * gravityIncrease);
+            rb.gravityScale = Mathf.Min(newGravity, maxGravity); // Clamp max tak
         }
     }
 }
-
-
-
 
