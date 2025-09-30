@@ -22,6 +22,10 @@ public class GameOverPanel : MonoBehaviour
             gameOverPanel.SetActive(true);
 
         Time.timeScale = 0f; // pause game
+        Debug.Log("Game over trying to show ads...");
+
+        AdsManager.Instance.ShowInterstitialAd();
+        
     }
 
     public void RestartGame()
@@ -40,3 +44,10 @@ public class GameOverPanel : MonoBehaviour
         Debug.Log("Returned to Main Menu");
     }
 }
+
+
+
+
+
+
+

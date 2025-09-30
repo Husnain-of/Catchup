@@ -8,6 +8,11 @@ public class MainMenu : MonoBehaviour
     {
         // "Game" ki jagah apna game scene ka exact naam likhna
         SceneManager.LoadScene("Game");
+        //Debug.log("loading Game Scene...");   
+        AdsManager.Instance.LoadInterstitialAd();
+
+
+        
     }
 
     // Agar Exit button bhi chahiye
