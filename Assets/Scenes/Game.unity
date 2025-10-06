@@ -2221,10 +2221,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce2e5edb0c76343f7b6340f5e189d55e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initializeAds: {fileID: 361890407}
-  bannerAds: {fileID: 561667126}
-  interstitialAds: {fileID: 345106908}
-  rewardedAds: {fileID: 1805827343}
+  androidGameId: 5955409
+  iosGameId: 5955408
+  testMode: 1
+  bannerAdUnitId: Banner_Android
+  interstitialAdUnitId: Interstitial_Android
 --- !u!4 &1806079773
 Transform:
   m_ObjectHideFlags: 0
@@ -2859,7 +2860,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5233701891157604611, guid: 5ba55913cfb874cecb8c5a014c9432af, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 842
+      value: 774
       objectReference: {fileID: 0}
     - target: {fileID: 5233701891157604611, guid: 5ba55913cfb874cecb8c5a014c9432af, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
